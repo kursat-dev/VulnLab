@@ -4,7 +4,6 @@
 
 **An Intentionally Vulnerable Web Application for Educational Purposes**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-v18+-green.svg)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-v18-blue.svg)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-Fast-purple.svg)](https://vitejs.dev/)
@@ -129,7 +128,7 @@ Access the application at `http://localhost:5173`.
 
 ## 📝 License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 
 ---
 
