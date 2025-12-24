@@ -130,9 +130,3 @@ Access the application at `http://localhost:5173`.
 ## 📝 License
 
 Distributed under the GPL-3.0 License. See `LICENSE` for more information.
-
----
-
-<div align="center">
-  <p>Made with ❤️ for Security Education</p>
-</div>
