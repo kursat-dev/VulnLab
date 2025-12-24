@@ -4,6 +4,7 @@
 
 **An Intentionally Vulnerable Web Application for Educational Purposes**
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Node.js](https://img.shields.io/badge/Node.js-v18+-green.svg)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-v18-blue.svg)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-Fast-purple.svg)](https://vitejs.dev/)
