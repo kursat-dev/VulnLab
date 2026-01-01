@@ -53,7 +53,7 @@ To get a local copy up and running, follow these simple steps.
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/yourusername/vulnlab.git
+git clone https://github.com/kursat-dev/VulnLab.git
 cd vulnlab
 ```
 
