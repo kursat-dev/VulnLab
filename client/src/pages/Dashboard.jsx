@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Lock, Database, FileCode } from 'lucide-react';
+import { ArrowRight, Lock, Database, FileCode, Terminal, FileText, Upload } from 'lucide-react';
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -14,12 +14,28 @@ const Dashboard = () => {
             bg: "bg-blue-400/10"
         },
         {
+            title: "Command Injection",
+            description: "Execute arbitrary OS commands on the server through an unsanitized input field.",
+            icon: Terminal,
+            path: "/ping",
+            color: "text-red-500",
+            bg: "bg-red-500/10"
+        },
+        {
             title: "IDOR",
             description: "Access other users' private documents by manipulating IDs in the URL.",
             icon: Lock,
             path: "/documents",
             color: "text-red-400",
             bg: "bg-red-400/10"
+        },
+        {
+            title: "Local File Inclusion",
+            description: "Read sensitive files from the server's local file system without authorization.",
+            icon: FileText,
+            path: "/logs",
+            color: "text-blue-500",
+            bg: "bg-blue-500/10"
         },
         {
             title: "Stored XSS",
@@ -36,6 +52,14 @@ const Dashboard = () => {
             path: "/search",
             color: "text-yellow-400",
             bg: "bg-yellow-400/10"
+        },
+        {
+            title: "File Upload",
+            description: "Upload arbitrary files to the server and gain remote code execution.",
+            icon: Upload,
+            path: "/upload",
+            color: "text-purple-400",
+            bg: "bg-purple-400/10"
         }
     ];
 
