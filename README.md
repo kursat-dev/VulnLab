@@ -30,9 +30,12 @@ Unlike typical "ugly" vulnerable apps, VulnLab features a sleek, responsive UI b
 - 📊 **Interactive Dashboard**: Easy navigation between vulnerability modules.
 - 📝 **Real-world Scenarios**:
   - **SQL Injection**: Bypass login and dump database data.
+  - **Command Injection**: Execute OS commands through the Ping tool.
   - **IDOR (Insecure Direct Object References)**: Access private documents of other users.
+  - **Local File Inclusion (LFI)**: Read sensitive server files via the Log Viewer.
   - **Stored XSS**: Inject malicious scripts into a persistent guestbook.
   - **Reflected XSS**: Execute scripts via search parameters.
+  - **Unrestricted File Upload**: Upload arbitrary files to gain RCE.
 - 🛠️ **Educational Hints**: Built-in tips to guide beginners.
 
 ## 🛠 Tech Stack
@@ -113,9 +116,12 @@ Access the application at `http://localhost:5173`.
 | Vulnerability | Location | Description |
 |---------------|----------|-------------|
 | **SQL Injection** | `/login` | Bypass authentication using `' OR '1'='1`. |
+| **Command Injection** | `/ping` | Execute OS commands using `;`, `&`, or `|`. |
 | **IDOR** | `/documents` | Access other users' documents by changing the ID in the URL. |
+| **LFI** | `/logs` | Read server files like `package.json` using `../`. |
 | **Stored XSS** | `/guestbook` | Comments are stored and rendered without sanitization. |
 | **Reflected XSS** | `/search` | Search query is reflected back in the HTML response. |
+| **File Upload** | `/upload` | Upload any file (like `.html`) to the server. |
 
 ## ⚠️ Disclaimer
 
