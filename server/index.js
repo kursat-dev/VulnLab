@@ -11,8 +11,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static files (if we want to serve frontend from here later, but for dev we use Vite)
-// app.use(express.static(path.join(__dirname, '../client/dist')));
+// Serve static files (uploads, logs, etc.)
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 const authRoutes = require('./routes/auth');
