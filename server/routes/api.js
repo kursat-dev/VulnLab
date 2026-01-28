@@ -1,21 +1,19 @@
-const express = require('express');
-const router = express.Router();
-const db = require('../db');
-const jwt = require('jsonwebtoken');
+const path = require('path');
+const fs = require('fs');
+const { exec } = require('child_process');
+const multer = require('multer');
 
-const JWT_SECRET = 'secret';
-
-// Middleware to verify token (but doesn't fix IDOR)
-const verifyToken = (req, res, next) => {
-    const token = req.headers['authorization'];
-    if (!token) return res.status(403).json({ error: "No token provided" });
-
-    jwt.verify(token, JWT_SECRET, (err, decoded) => {
-        if (err) return res.status(500).json({ error: "Failed to authenticate token" });
-        req.userId = decoded.id;
-        next();
-    });
-};
+// Configure multer for Unrestricted File Upload
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/uploads/');
+    },
+    filename: (req, file, cb) => {
+        // VULNERABILITY: No filename sanitization or extension check
+        cb(null, file.originalname);
+    }
+});
+const upload = multer({ storage: storage });
 
 // VULNERABILITY: IDOR (Insecure Direct Object Reference)
 // User can access ANY document by changing the :id parameter
@@ -46,13 +44,8 @@ router.get('/search', (req, res) => {
         { id: 2, title: "Result 2 for " + query }
     ];
 
-    // In a real API, XSS usually happens when the frontend renders this response insecurely (e.g., dangerouslySetInnerHTML)
-    // OR if the API returns HTML directly.
-    // For this API, we return JSON, but the education comes from the frontend handling.
-    // However, to demonstrate API-level reflection (less common in JSON APIs but possible):
-
     res.json({
-        query: query, // The frontend will likely render this raw
+        query: query,
         results: results
     });
 });
@@ -72,6 +65,51 @@ router.get('/comments', (req, res) => {
     db.all("SELECT comments.*, users.username FROM comments JOIN users ON comments.user_id = users.id ORDER BY created_at DESC", (err, rows) => {
         if (err) return res.status(500).json({ error: "Database error" });
         res.json(rows);
+    });
+});
+
+// VULNERABILITY: Command Injection
+// The system executes a shell command with unsanitized user input
+router.post('/ping', (req, res) => {
+    const { ip } = req.body;
+
+    // Command sequence injection possible (e.g., "127.0.0.1; ls")
+    const command = `ping -c 4 ${ip}`;
+
+    exec(command, (error, stdout, stderr) => {
+        res.json({
+            command: command,
+            output: stdout || stderr || error?.message
+        });
+    });
+});
+
+// VULNERABILITY: Local File Inclusion (LFI)
+// The system reads a file from the disk based on a user-provided path
+router.get('/logs', (req, res) => {
+    const file = req.query.file || 'logs.txt';
+    const filePath = path.join(__dirname, '../public', file);
+
+    // VULNERABILITY: No path sanitization (e.g., "../package.json")
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(404).json({ error: "File not found or access denied" });
+        }
+        res.send(data);
+    });
+});
+
+// VULNERABILITY: Unrestricted File Upload
+// No validation on file type, size, or content
+router.post('/upload', verifyToken, upload.single('avatar'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    res.json({
+        message: "File uploaded successfully",
+        filename: req.file.originalname,
+        path: `/uploads/${req.file.originalname}`
     });
 });
 

@@ -1,0 +1,4 @@
+Server started at Wed Jan 28 20:18:35 +03 2026
+Database initialized
+User 'admin' logged in from 127.0.0.1
+User 'user' logged in from 127.0.0.1
