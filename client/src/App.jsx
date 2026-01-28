@@ -5,6 +5,9 @@ import Dashboard from './pages/Dashboard';
 import Documents from './pages/Documents';
 import Guestbook from './pages/Guestbook';
 import Search from './pages/Search';
+import PingCommand from './pages/PingCommand';
+import LogViewer from './pages/LogViewer';
+import ProfileUpload from './pages/ProfileUpload';
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('token');
@@ -43,6 +46,21 @@ function App() {
             <Route path="/search" element={
               <ProtectedRoute>
                 <Search />
+              </ProtectedRoute>
+            } />
+            <Route path="/ping" element={
+              <ProtectedRoute>
+                <PingCommand />
+              </ProtectedRoute>
+            } />
+            <Route path="/logs" element={
+              <ProtectedRoute>
+                <LogViewer />
+              </ProtectedRoute>
+            } />
+            <Route path="/upload" element={
+              <ProtectedRoute>
+                <ProfileUpload />
               </ProtectedRoute>
             } />
           </Routes>
